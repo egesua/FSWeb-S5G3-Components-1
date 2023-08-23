@@ -1,3 +1,4 @@
+import { data } from "msw/lib/types/context";
 import "./Menu.less";
 
 // Kullanacağımız veri bu, üzerinde çalışın ama henüz hiçbir şeyi değiştirmeyin.
@@ -34,3 +35,29 @@ let menuElemanlari = [
 
   Adım 6: 'menuYapici' fonksiyonunu ve 'menuElemanlari' dizisini kullanarak menüyü oluşturun, ve döndürülen menüyü header'e ekleyin.
 */
+
+const menuYapici = (menu) => {
+  const menuDiv = document.createElement("div");
+  menuDiv.classList.add("menu")
+
+  const ul = document.createElement("ul");
+
+  menu.forEach(item => {
+    const li = document.createElement("li");
+    li.textContent = item
+    ul.append(li);
+  })
+
+  menuDiv.append(ul);
+
+  const menuButton = document.querySelector(".menu-button");
+  menuButton.addEventListener("click", (event) => {
+    menuDiv.classList.toggle("menu--open")  
+  })
+
+  return menuDiv;
+}
+
+const menuSection = document.querySelector(".header");
+menuSection.append(menuYapici(menuElemanlari));
+
